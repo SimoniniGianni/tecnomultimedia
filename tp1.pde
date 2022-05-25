@@ -1,3 +1,7 @@
+//Tp1Lenguaje Mulimedial
+//Nombre:Gianni Simonini
+//Legajo:91572/5
+
 PImage h;
 PImage p;
 PImage o;
