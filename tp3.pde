@@ -1,3 +1,10 @@
+//Trabajo Practico N#3
+
+//Profesor: David Bedoian
+//Alumno: Simonini Ibañez Gianni  
+//Numero de Legajo: 91572/5
+
+
 //carga de imagenes de dados y personajes.
 PImage [] images = new PImage[6];
 String [] filenames = {"a.png","b.png","c.png","d.png","e.png","f.png"};
@@ -21,7 +28,7 @@ int w2 = 150;
 int h2 = 50;
 
 //jugador 1 o jugador 2.
-int player = 1;
+float player = 1;
 
 //dado
 float suma1 =0;
@@ -34,19 +41,19 @@ int pantalla = 0;
 
 //boton de play
 int playx=300;
-int playy=250;
+int playy=200;
 int playw=300;
 int playh=100;
 
+//boton de replay
 int replayx=300;
-int replayy=150;
+int replayy=400;
 int replayw=300;
 int replayh=100;
 
-void setup(){
+void setup(){  
   for (int i = 0; i < filenames.length; i++){
-    images[i] = loadImage(filenames[i]);
-  }
+  images[i] = loadImage(filenames[i]);} //array que carga las fotos
   
   tortuga = loadImage("tortuga.png");
   liebre = loadImage("liebre.png");
@@ -59,34 +66,45 @@ void setup(){
   size(900,600);
 }
 void draw(){
-  if(pantalla==0){   
+  
+  //Pantalla 1
+  if(pantalla==0){
     background(50,170, 70);
     pushStyle();
-    rectMode(CENTER);
-    rect(width/2,height/2,300,100);
+    rect(playx,playy,playw,playh);
+    rect(150,310,600,150);
     popStyle();
     pushStyle();
-    textMode(CENTER);
     textFont(fn);
     textSize(50);
-    fill(50,170, 70);
-    text("PLAY",390,315);
+    fill(0);
+    text("JUGAR",365,270);
     popStyle();
+    pushStyle();
+    fill(0);
+    textSize(20);
+    text("¿Como Jugar?",365,330);
+    text("Este juego se tiene que jugar de a dos. \nCada uno tiene un turno para tirar los dados. \nMientras mas alto sea el numero, mas avanzaras. \nel primero en cruzar la meta gana. \n¡A Jugar! ",165,350);
+    text("Jugador 2",176,160);
+    text("Jugador 1",640,160);
+    popStyle();
+    image(liebre,640,190);
+    image(tortuga,170,236);
    
   }else{
+  println(player);
   background(60,170,215);
-  println(suma1);
-//cesped
 
+//cesped
   pushStyle();
   fill(60,210,77);
   rect(0,400,650,200);
   popStyle();
   
   for(int i=0; i<650; i+=20) {
-    for(int o=400; o<600; o+=25){
-    fill(50,170, 70);
-    rect(i,o,650/100,20);
+  for(int o=400; o<600; o+=25){
+  fill(50,170, 70);
+  rect(i,o,650/100,20);
     }
   }
   for(int i=0; i<650; i+=20) {
@@ -101,20 +119,20 @@ void draw(){
   rect(i+12,o+2,650/100,20);
     }
   }
-//nubes  
+//nubes
   push();
-      fill(255);
-      ellipse(k,l,150,40);
-      if(k>=400-150/2){
-      v1=v1*-1;}
-      if(k<=100-150/2){
-      v1=v1*-1;}
-         ellipse(k+200,l+100,150,40);
-      if(k>=600-150/2){
-      v1=v1*-1;}
-      if(k<=0-150/2){
-      v1=v1*-1;}
-      k+=v1*1;
+  fill(255);
+  ellipse(k,l,150,40);
+  if(k>=400-150/2){
+  v1=v1*-1;}
+  if(k<=100-150/2){
+  v1=v1*-1;}
+  ellipse(k+200,l+100,150,40);
+  if(k>=600-150/2){
+  v1=v1*-1;}
+  if(k<=0-150/2){
+  v1=v1*-1;}
+  k+=v1*1;
   pop();
   
 //hud
@@ -126,11 +144,11 @@ void draw(){
   textFont(fn);
   textSize(25);
   fill(0);
-  text("Player 1",734,35);
-  text("Player 2",734,352);
+  text("Jugador 1",724,35);
+  text("Jugador 2",724,352);
   popStyle();
   
-//dados
+//Jugadores
   if(player==1){
   fill(200,0,0);
   rect(x1,y1,w1,h1);
@@ -138,8 +156,8 @@ void draw(){
   textFont(fn);
   textSize(20);
   fill(255);
-  text("tirar",755,72);
-  text("dados",745,87);
+  text("Tirar",755,72);
+  text("dados",750,87);
   popStyle();
   } 
   if(player==2){
@@ -149,23 +167,23 @@ void draw(){
   textFont(fn);
   textSize(20);
   fill(255);
-  text("tirar",755,392);
-  text("dados",745,407);
+  text("Tirar",755,392);
+  text("dados",750,407);
   popStyle();
   }
 //meta
   for (int q1=590;q1<650;q1+=15){
-    for(int q2=400;q2<600;q2+=15){
-    if((q1+q2)%2==0) {fill(255);}
-    else{fill(10);}
-    rect(q1,q2,15,15);
+  for(int q2=400;q2<600;q2+=15){
+  if((q1+q2)%2==0) {fill(255);}
+  else{fill(10);}
+  rect(q1,q2,15,15);
     }
   }
 //carga de peronajes
   image(liebre,mov1,350);
   image(tortuga,mov2,500);
   
-//depende de que dado toque player1
+//carga de imagenes dependiendo de un valor (dados) jugador 1
   if (suma1>10){
     image(images[0],745,103);
   }
@@ -184,7 +202,7 @@ void draw(){
   if (suma1>60){
     image(images[5],745,103);
   }
-//depende dado que toque player 2 
+//carga de imagenes dependiendo de un valor (dados) jugador 2
   if (suma2>10){
     image(images[0],745,423);
   }
@@ -203,71 +221,75 @@ void draw(){
   if (suma2>65){
     image(images[5],745,423);
   }  
- }
- if(mov1>500){
+}
+  //evalua quien gana
+  if(mov1>500){
    pantalla=2;
  }
- if(mov2>500){
+  if(mov2>500){
    pantalla=3;
  }
- if(pantalla==2){
-   pushStyle();
+  if(pantalla==2){
    background(255,0,0);
+   rect(300,400,300,100);
+   rect(300,100,300,100);
+   rect(300,240,300,110);
+   pushStyle();
+   fill(0);
+   textSize(40);
+   text("REPLAY",375,467);
    popStyle();
    pushStyle();
-   rectMode(CENTER);
-   rect(width/2,height/2,300,100);
-   rect(width/2,height/4,300,100);
-   popStyle();   
-   pushStyle();
-   textMode(CENTER);
-   textFont(fn);
    textSize(30);
    fill(0);
-   text("PLAYER 1\nGANADOR",370,295);
+   text("¡PLAYER 1 \nGANADOR!",365,142);
+   text("Made By: \nSebastián Vargas & \nGianni Simonini",315,269);
    popStyle();
-   pushStyle();
-   fill(0);
-   textSize(50);
-   text("REPLAY",350,165);
-   popStyle();
+   image(liebre,640,190);
+   
  }
- if(pantalla==3){pushStyle();
+  if(pantalla==3){
    background(0,0,255);
+   rect(300,400,300,100);
+   rect(300,100,300,100);
+   rect(300,240,300,110);
+   pushStyle();
+   fill(0);
+   textSize(40);
+   text("REPLAY",375,467);
    popStyle();
    pushStyle();
-   rectMode(CENTER);
-   rect(width/2,height/2,300,100);
-   rect(width/2,height/4,300,100);
-   popStyle();   
-   pushStyle();
-   textMode(CENTER);
-   textFont(fn);
    textSize(30);
    fill(0);
-   text("PLAYER 2\nGANADOR",370,295);
+   text("¡PLAYER 2 \nGANADOR!",365,142);
+   text("Made By: \nGianni Simonini & \nSebastián Vargas",315,269);
    popStyle();
-   pushStyle();
-   fill(0);
-   textSize(50);
-   text("REPLAY",350,165);
-   popStyle();
+   image(tortuga,170,236);
  }
 }
 
 void mousePressed(){
+  //boton que nos vuelve a la pantalla 0
+  if((mouseX>replayx)&&(mouseY>replayy)&&(mouseX<replayx+replayw)&&(mouseY<replayy+replayh)){
+      pantalla=0;
+      mov1=0;
+      mov2=0;
+      suma1=0;
+      suma2=0;
+      player=1;
+  }
+  //boton que nos pasa a la pantalla 1
   if((mouseX>playx)&&(mouseY>playy)&&(mouseX<playx+playw)&&(mouseY<playy+playh)){
       pantalla+=1;
-  }  
-  if((mouseX>x1)&&(mouseY>y1)&&(mouseX<x1+w1)&&(mouseY<y1+h1)){
-      player=2;
-      mov1+=suma1=random(10,65);
   }
+  //boton que tira los dados del jugador 1
   if((mouseX>x2)&&(mouseY>y2)&&(mouseX<x2+w2)&&(mouseY<y2+h2)){
       player=1;
       mov2+=suma2=random(10,65);
   }
-  if((mouseX>replayx)&&(mouseY>replayy)&&(mouseX<replayx+replayw)&&(mouseY<replayy+replayh)){
-      pantalla=0;
+  //boton que tira los dados del jugador 2
+  if((mouseX>x1)&&(mouseY>y1)&&(mouseX<x1+w1)&&(mouseY<y1+h1)){
+      player=2;
+      mov1+=suma1=random(10,65);
   }
 }
