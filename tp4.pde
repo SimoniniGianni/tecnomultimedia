@@ -1,3 +1,8 @@
+// Nombre: Simonini Ibañez, Gianni
+// Legajo: 91572
+// Comision: 3
+
+
 PImage Inicio;
 PFont font;
 int estado=0;
